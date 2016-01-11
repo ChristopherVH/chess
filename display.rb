@@ -41,19 +41,11 @@ class Display
     { background: bg, color: :white }
   end
 
-  def selected_piece
+  def key_hit
     result = nil
     until result
       render
       result = get_input
-    end
-  end
-
-  def key_hit
-    result = nil
-    until result
-      @display.render
-      result = @display.get_input
     end
     result
   end
@@ -62,20 +54,34 @@ class Display
     if @selected # we are holding a piece
       puts "move the piece"
       @selected = false
-      drop_piece(key_hit) unless (piece)valid_move?(key_hit)
+      drop_piece(key_hit)
     else # we are not holding a piece
       puts "take a piece"
       @selected = true
       grab_piece(key_hit)
       select_piece
     end
+  rescue #InvalidMoveError
+      @held_piece = nil
+      @selected = false
+      select_piece
   end
 
   def grab_piece(pos)
-    @held_piece = @board[pos]
+    if @board[pos].color == @player_color # TODO define @player_color
+      @held_piece = @board[pos]
+    else
+      raise "You don't own that piece :("
+      #TODO raise invalid move error
   end
 
   def drop_piece(pos)
+    if @held_piece.valid_moves.include?(pos)
+      board.move(@held_piece.pos, pos)
+    else
+      raise "You can't move there!! :("
+      #TODO raise invalid move error
+
   end
 
 
