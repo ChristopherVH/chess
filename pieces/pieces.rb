@@ -1,3 +1,5 @@
+require_relative "./board.rb"
+
 class Piece
   attr_reader :board, :color
   attr_accessor :pos, :valid_moves

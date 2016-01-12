@@ -1,3 +1,7 @@
+require_relative "board.rb"
+require_relative "display.rb"
+require_relative "player.rb"
+
 class Game
 
   attr_reader :display

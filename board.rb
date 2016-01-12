@@ -1,4 +1,5 @@
-# require_relative "./pieces/pieces.rb"
+require_relative "./pieces/pieces.rb"
+
 class Board
 
   def initialize
