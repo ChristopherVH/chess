@@ -1,0 +1,3 @@
+class SteppingPiece < Piece
+
+end

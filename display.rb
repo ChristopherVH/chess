@@ -1,4 +1,6 @@
 require_relative "cursorable"
+require "./pieces/pieces.rb"
+require_relative "board.rb"
 require 'colorize'
 
 class Display
@@ -9,13 +11,10 @@ class Display
   def initialize(board)
     @board = board
     @cursor_pos = [0, 0]
-    @selected = false
-    @held_piece = Piece.new(nil) # TODO fix this when we work on pieces
+    @selected = false # TODO remove; held_piece == true if it isn't nil
+    @held_piece = Piece.new # TODO fix this when we work on pieces
   end
 
-  def show_board
-    # TODO do something with board + identifying letters
-  end
 
   def build_grid
     @board.rows.map.with_index do |row, i|
@@ -36,7 +35,7 @@ class Display
     elsif (i + j).odd?
       bg = :yellow
     else
-      bg = :orange
+      bg = :light_blue
     end
     { background: bg, color: :white }
   end
@@ -73,6 +72,7 @@ class Display
     else
       raise "You don't own that piece :("
       #TODO raise invalid move error
+    end
   end
 
   def drop_piece(pos)
@@ -81,6 +81,7 @@ class Display
     else
       raise "You can't move there!! :("
       #TODO raise invalid move error
+    end
 
   end
 
@@ -90,5 +91,13 @@ class Display
     puts "Chess!"
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
     build_grid.each { |row| puts row.join }
+  end
+
+  def game_test
+    puts "play chess!"
+    while true
+      render
+      pos = key_hit
+    end
   end
 end

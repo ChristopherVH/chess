@@ -1,16 +1,19 @@
+# require_relative "./pieces/pieces.rb"
 class Board
+
+
   def initialize
-    @grid = Array.new(8) {Array.new(8) }
+    @grid = Array.new(8) {Array.new(8) {Piece.new}}
   end
 
   def [](pos)
-    row, col = pos
-    @grid[col][pos]
+    row , col = pos
+    @grid[col][row]
   end
 
   def []=(pos, value)
     row, col = pos
-    @grid[col][pos] = value
+    @grid[col][row] = value
   end
 
   def move(start_pos, end_pos)
@@ -20,7 +23,7 @@ class Board
 
   def mark(pos)
     x, y = pos
-    @grid[x][y] = # place new piece
+    # self[x, y] = # place new piece
   end
 
   def in_bounds?(pos)
