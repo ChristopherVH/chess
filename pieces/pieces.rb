@@ -21,7 +21,7 @@ class Piece
   end
 
   def inspect
-    "   "
+    symbol
   end
 
   def generate_moves #TODO: Possibly redundant check
@@ -29,17 +29,14 @@ class Piece
     @valid_moves = []
   end
 
-
-
   def die # check me; do I get garbage collected?
     # self.board = move to "captured list / board / array"
-    self.board[pos] = Piece.new
+    self.board[pos] = Piece.new(board: board, pos: pos)
   end
 
-  def kill
-    # board[end].die
-    # self.move(start, end)
-  end
+  # def kill(pos)
+  #   board[pos].die
+  # end
 
   def null_piece?
     @color.nil?

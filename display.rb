@@ -6,7 +6,7 @@ require 'colorize'
 class Display
   include Cursorable
 
-  attr_reader :board 
+  attr_reader :board
   attr_accessor :message, :held_piece
 
   def initialize
@@ -15,7 +15,6 @@ class Display
     @message = ''
     @held_piece = nil # TODO fix this when we work on pieces
   end
-
 
   def build_grid
     @board.rows.map.with_index do |row, i|
@@ -86,7 +85,6 @@ class Display
     end
 
   end
-
 
   def render
     system("clear")
