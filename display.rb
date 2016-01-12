@@ -77,6 +77,9 @@ class Display
 
   def drop_piece(pos)
     if @held_piece.valid_moves.include?(pos)
+      dup = board.dup
+      board.dup.move!
+      board.move
       board.move(@held_piece.pos, pos)
     else
       raise "You can't move there!! :("

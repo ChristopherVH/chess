@@ -20,6 +20,7 @@ class Piece
 
   def die
     self.value, self.color = nil, nil
+    
   end
 
   def kill
