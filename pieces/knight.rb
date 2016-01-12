@@ -4,7 +4,7 @@ require_relative 'steppingpiece.rb'
 class Knight < SteppingPiece
 
   def symbol
-    @color == :w ? " ♘ ": " ♞ "
+    @color == :w ? " ♞ " : " ♘ "
   end
 
 end

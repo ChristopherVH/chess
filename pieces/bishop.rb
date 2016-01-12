@@ -1,10 +1,10 @@
-require 'diagonal_movement_module'
-require_relative "slidingpiece.rb"
+require_relative 'diagonal_movement_module'
+require_relative 'slidingpiece'
 
 class Bishop < SlidingPiece
   include DiagonalMovementModule
 
   def symbol
-    @color == :w ? " ♗ ": " ♝ "
+    @color == :w ?  " ♝ " : " ♗ "
   end
 end

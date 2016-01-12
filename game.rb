@@ -6,7 +6,7 @@ class Game
 
   attr_reader :display
 
-  def initialize(p1, p2)
+  def initialize(p1 = Player.new("White", :w), p2 = Player.new("Black", :b))
     @display = Display.new
     @p1, @p2 = p1, p2
     @current_player = p1

@@ -1,5 +1,7 @@
 require_relative "cursorable"
 require "./pieces/pieces.rb"
+require "./pieces/directory.rb"
+
 require_relative "board.rb"
 require 'colorize'
 
@@ -33,7 +35,7 @@ class Display
     if [i, j] == @cursor_pos
       bg = :green
     elsif (i + j).odd?
-      bg = :yellow
+      bg = :orange
     else
       bg = :light_blue
     end

@@ -1,9 +1,10 @@
 require_relative "./pieces/pieces.rb"
+require_relative "./pieces/directory.rb"
 
 class Board
 
   def initialize
-    @grid = Array.new(8) {Array.new(8) {Piece.new}}
+    @grid = Array.new(8) {Array.new(8) {Pawn.new}}
     populate
   end
 
@@ -31,32 +32,36 @@ class Board
   end
 
   def populate
-    rows.each_with_index |row, y|
-      row.each_with_index |square, x|
-        if row == 0 || row == 7
-          color = (row == 0 ? :b : :w)
+    @grid.each_with_index do |row, y|
+      row.each_with_index do |square, x|
+        if y == 0 || y == 7
+          p "Filling first row"
+          color = (y == 0 ? :b : :w)
           first_row(x,y,color)
-        elsif row == 1 || row == 6
-          color = (row == 1 ? :b : :w)
-          self[x,y] = Pawn.new(board: self, pos: [x,y], color: color)
+        elsif y == 1 || y == 6
+          p "filling second row"
+          color = (y == 1 ? :b : :w)
+          @grid[y][x] = Pawn.new(board: self, pos: [x,y], color: color)
         else
-          self[x,y] = Piece.new(board: self, pos: [x,y])
+          p "filling other rows"
+          @grid[y][x] = Piece.new(board: self, pos: [x,y])
         end
+      end
     end
   end
 
   def first_row(x, y, color)
-    case y
-    when 0 || 7
-      self[x,y] = Rook.new(board: self, pos: [x,y], color: color)
-    when 1 || 6
-      self[x,y] = Knight.new(board: self, pos: [x,y], color: color)
-    when 2 || 5
-      self[x,y] = Bishop.new(board: self, pos: [x,y], color: color)
+    case x
+    when 0, 7
+      @grid[y][x] = Rook.new(board: self, pos: [x,y], color: color)
+    when 1, 6
+      @grid[y][x] = Knight.new(board: self, pos: [x,y], color: color)
+    when 2, 5
+      @grid[y][x] = Bishop.new(board: self, pos: [x,y], color: color)
     when 3
-      self[x,y] = Queen.new(board: self, pos: [x,y], color: color)
+      @grid[y][x] = Queen.new(board: self, pos: [x,y], color: color)
     when 4
-      self[x,y] = King.new(board: self, pos: [x,y], color: color)
+      @grid[y][x] = King.new(board: self, pos: [x,y], color: color)
     end
   end
 
