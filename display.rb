@@ -6,12 +6,13 @@ require 'colorize'
 class Display
   include Cursorable
 
-  attr_reader :board, :held_piece
+  attr_reader :board 
+  attr_accessor :message, :held_piece
 
   def initialize
     @board = Board.new
     @cursor_pos = [0, 0]
-    @selected = false # TODO remove; held_piece == true if it isn't nil
+    @message = ''
     @held_piece = nil # TODO fix this when we work on pieces
   end
 
@@ -101,4 +102,5 @@ class Display
       pos = key_hit
     end
   end
+
 end

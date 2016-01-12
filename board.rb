@@ -4,6 +4,7 @@ class Board
 
   def initialize
     @grid = Array.new(8) {Array.new(8) {Piece.new}}
+    populate
   end
 
   def [](pos)
@@ -32,6 +33,16 @@ class Board
 
   def rows
     @grid
+  end
+
+  def populate
+    rows.each_with_index |row, y|
+      row.each_with_index |square, x|
+        if row == 0 || row == 7
+        elsif row == 1 || row == 6
+        else
+          self[]
+    end
   end
 
 end

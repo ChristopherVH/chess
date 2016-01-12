@@ -1,26 +1,39 @@
 class Piece
-  def initialize(board, color = nil, pos = nil, value = nil)
-    @board = board
-    @color = color
-    @pos = pos
-    @value = value
+  attr_reader :board, :color
+  attr_accessor :pos, :valid_moves
+
+  def initialize(opt = {})
+    default = {board: nil, color: nil, pos: nil}
+    opt = default.merge(opt)
+
+    @board = opt[:board]
+    @color = opt[:color]
+    @pos = opt[:pos]
+    @valid_moves = []
+  end
+
+  def symbol
+    "   "
   end
 
   def to_s
-    "   "
+    symbol
   end
 
   def inspect
     "   "
   end
 
-  def moves
-    #return array of valid moves
+  def generate_moves #TODO: Possibly redundant check
+    # do something to self.valid_moves
+    @valid_moves = []
   end
 
-  def die
-    self.value, self.color = nil, nil
 
+
+  def die # check me; do I get garbage collected?
+    # self.board = move to "captured list / board / array"
+    self.board[pos] = Piece.new
   end
 
   def kill
