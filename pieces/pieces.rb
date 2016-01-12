@@ -1,9 +1,9 @@
 class Piece
-  def initialize(color = nil, pos = nil, value = nil, board = nil)
+  def initialize(board, color = nil, pos = nil, value = nil)
+    @board = board
     @color = color
     @pos = pos
     @value = value
-    @board = board
   end
 
   def to_s
@@ -20,12 +20,16 @@ class Piece
 
   def die
     self.value, self.color = nil, nil
-    
+
   end
 
   def kill
     # board[end].die
     # self.move(start, end)
+  end
+
+  def null_piece?
+    @color.nil?
   end
 
 end

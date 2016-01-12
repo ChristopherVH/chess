@@ -8,11 +8,11 @@ class Display
 
   attr_reader :board, :held_piece
 
-  def initialize(board)
-    @board = board
+  def initialize
+    @board = Board.new
     @cursor_pos = [0, 0]
     @selected = false # TODO remove; held_piece == true if it isn't nil
-    @held_piece = Piece.new # TODO fix this when we work on pieces
+    @held_piece = nil # TODO fix this when we work on pieces
   end
 
 
@@ -50,23 +50,21 @@ class Display
   end
 
   def select_piece
-    if @selected # we are holding a piece
+    if @held_piece # we are holding a piece
       puts "move the piece"
-      @selected = false
       drop_piece(key_hit)
+      @held_piece = nil
     else # we are not holding a piece
       puts "take a piece"
-      @selected = true
       grab_piece(key_hit)
       select_piece
     end
   rescue #InvalidMoveError
       @held_piece = nil
-      @selected = false
       select_piece
   end
 
-  def grab_piece(pos)
+  def grab_piece(pos) # color
     if @board[pos].color == @player_color # TODO define @player_color
       @held_piece = @board[pos]
     else
