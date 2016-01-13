@@ -4,7 +4,7 @@ require_relative "./pieces/directory.rb"
 class Board
 
   def initialize
-    @grid = Array.new(8) {Array.new(8) {Pawn.new}}
+    @grid = Array.new(8) {Array.new(8) {Piece.new}}
     populate
   end
 
@@ -42,9 +42,6 @@ class Board
           p "filling second row"
           color = (y == 1 ? :b : :w)
           @grid[y][x] = Pawn.new(board: self, pos: [x,y], color: color)
-        else
-          p "filling other rows"
-          @grid[y][x] = Piece.new(board: self, pos: [x,y])
         end
       end
     end

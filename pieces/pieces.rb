@@ -42,4 +42,29 @@ class Piece
     @color.nil?
   end
 
+  def directions
+    []
+  end
+
+  def potential_moves_old
+    directions.map { |dir| [dir.first += pos.first, dir.last += pos.last]}
+  end
+
+  def potential_moves
+    move_hash = {}
+    directions.each do |direction|
+      move_hash[direction] = [dir.first += pos.first, dir.last += pos.last]
+    end
+    move_hash
+  end
+
+  def valid?(pos)
+    #1. pos is on the Board
+    #2. board[pos] is empty
+      # blocked = true
+    #   a. board[pos].color = enemy
+
+    #   b. board[pos].color = friend
+  end
+
 end
