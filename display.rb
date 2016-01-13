@@ -15,7 +15,7 @@ class Display
     @board = Board.new
     @cursor_pos = [0, 0]
     @message = ''
-    @held_piece = nil # TODO fix this when we work on pieces
+    @held_piece = nil # TODO apparently never updating
   end
 
   def build_grid
@@ -72,7 +72,7 @@ class Display
   def grab_piece(pos) # color
     # if @board[pos].color == @player_color # TODO define @player_color
     if true
-      @held_piece = @board[pos]
+      @held_piece = @board[@cursor_pos]
       p @held_piece
     else
       raise "You don't own that piece :("
@@ -98,7 +98,9 @@ class Display
     # system("clear")
     puts "Chess!"
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
+    puts "Held piece is #{@held_piece}"
     build_grid.each { |row| puts row.join }
+
   end
 
   def game_test
