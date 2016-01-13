@@ -10,41 +10,27 @@ class SlidingPiece < Piece
 
   def slide
     move_hash = potential_moves
+    slide_array = []
     move_hash.each do |key, value|
       blocked = false
       until blocked
-        if value.valid?
-          @valid_moves << value # if passes tests
-          move_hash[key] = [value.first + key.first, value.last + key.last]
+        if value.in_bounds?
+          if board[value].color.nil?
+            slide_array << value # if passes tests
+            move_hash[key] = [value.first + key.first, value.last + key.last]
+          else
+            slide_array << value unless board[value].color == self.color
+            blocked = true
+          end
         else
           blocked = true
-
         end
+      end
+    end
+    slide_array
   end
 
-    # next, run potential_moves through filters
-    # 1. in_bounds?(move)
-    # 2. occupied?(move)
-    #    a. board[move]color = self.color? then add
-    #    b. board[move]color = enemy.color?
-
+  def get_valid_moves
+    @valid_moves = slide
   end
 end
-
-self.pos = [5,5]
-move_hash = {
-  [ 1, 0] =>
-  [-1, 0] =>
-  [ 0, 1] =>
-  [ 0,-1] =>
-
-}
-
-
-blocked = true
-
-if in bounds & no one here -> @valid_moves << value; value = key + value; blocked still false so loops
-if out of bounds -> blocked = true; stop loops
-if in bounds @ someone here -> blocked = true
-  if someone = own color ->
-  else someone = enemy -> @valid_moves << value

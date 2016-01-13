@@ -17,12 +17,15 @@ class Game
   end
 
   def run_game
-    display('clear')
-
-    until over?
+    # display('clear')
+    display.render
+    p "???"
+    while true
+      p "test"
       display.select_piece
       # player.select_piece
       switch_player!
+      display.render
     end
 
   end

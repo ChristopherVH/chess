@@ -19,8 +19,9 @@ class Board
   end
 
   def move(start_pos, end_pos)
-    # update 2d grid and also moved pieces position
-    # raise exception if start_pos has no piece; piece cannot move to end
+    self[start_pos].pos, self[end_pos].pos = end_pos, start_pos
+
+    self[start_pos], self[end_pos] = self[end_pos], self[start_pos]
   end
 
   def in_bounds?(pos)

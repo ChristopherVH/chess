@@ -1,9 +1,9 @@
 module DiagonalMovementModule
   DIAGONAL =
   [
-    [1,1]
-    [1,-1]
-    [-1,1]
+    [1,1],
+    [1,-1],
+    [-1,1],
     [-1,-1]
   ]
 

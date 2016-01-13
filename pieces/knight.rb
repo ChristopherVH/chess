@@ -7,4 +7,20 @@ class Knight < SteppingPiece
     @color == :w ? " ♞ " : " ♘ "
   end
 
+  KNIGHT =
+  [
+    [1,2],
+    [-1,2],
+    [1,-2],
+    [-1,-2],
+    [2,1],
+    [2,-1],
+    [-2,-1],
+    [-2,1]
+  ]
+
+  def directions
+    KNIGHT
+  end
+
 end

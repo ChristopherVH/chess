@@ -52,13 +52,16 @@ class Display
   end
 
   def select_piece
+    p "select a piece"
     if @held_piece # we are holding a piece
       puts "move the piece"
       drop_piece(key_hit)
       @held_piece = nil
     else # we are not holding a piece
       puts "take a piece"
-      grab_piece(key_hit)
+      move = key_hit
+      p move
+      grab_piece(move)
       select_piece
     end
   rescue #InvalidMoveError
@@ -67,8 +70,10 @@ class Display
   end
 
   def grab_piece(pos) # color
-    if @board[pos].color == @player_color # TODO define @player_color
+    # if @board[pos].color == @player_color # TODO define @player_color
+    if true
       @held_piece = @board[pos]
+      p @held_piece
     else
       raise "You don't own that piece :("
       #TODO raise invalid move error
@@ -77,10 +82,11 @@ class Display
 
   def drop_piece(pos)
     if @held_piece.valid_moves.include?(pos)
-      dup = board.dup
-      board.dup.move!
-      board.move
+      # dup = board.dup
+      # board.dup.move!
+      # board.move
       board.move(@held_piece.pos, pos)
+      render
     else
       raise "You can't move there!! :("
       #TODO raise invalid move error
@@ -89,7 +95,7 @@ class Display
   end
 
   def render
-    system("clear")
+    # system("clear")
     puts "Chess!"
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
     build_grid.each { |row| puts row.join }

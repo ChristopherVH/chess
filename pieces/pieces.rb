@@ -58,13 +58,16 @@ class Piece
     move_hash
   end
 
-  def valid?(pos)
-    #1. pos is on the Board
-    #2. board[pos] is empty
-      # blocked = true
-    #   a. board[pos].color = enemy
 
-    #   b. board[pos].color = friend
-  end
+  # def in_board?(perspective_pos)
+  #   if
+  #   #1. pos is on the Board
+  #   #2. board[pos] is empty
+  #     # blocked = true
+  #   #   a. board[pos].color = enemy
+  #
+  #   #   b. board[pos].color = friend
+  # end
+
 
 end

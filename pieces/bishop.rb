@@ -14,4 +14,5 @@ class Bishop < SlidingPiece
     diagonal
   end
 
+
 end
