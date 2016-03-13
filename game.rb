@@ -18,17 +18,20 @@ class Game
 
   def run_game
     # display('clear')
-    display.render
+    @display.render
     p "???"
     while true
       p "test"
-      display.select_piece
+      @display.select_piece
       # player.select_piece
       switch_player!
-      display.render
+      @display.render
     end
 
   end
 
+end
 
+if __FILE__ == $PROGRAM_NAME
+  Game.new.run_game
 end

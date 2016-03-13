@@ -36,11 +36,9 @@ class Board
     @grid.each_with_index do |row, y|
       row.each_with_index do |square, x|
         if y == 0 || y == 7
-          p "Filling first row"
           color = (y == 0 ? :b : :w)
           first_row(x,y,color)
         elsif y == 1 || y == 6
-          p "filling second row"
           color = (y == 1 ? :b : :w)
           @grid[y][x] = Pawn.new(board: self, pos: [x,y], color: color)
         end

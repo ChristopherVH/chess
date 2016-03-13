@@ -15,7 +15,7 @@ class Display
     @board = Board.new
     @cursor_pos = [0, 0]
     @message = ''
-    @held_piece = nil # TODO apparently never updating
+    @held_piece = nil
   end
 
   def build_grid
@@ -55,6 +55,7 @@ class Display
     p "select a piece"
     if @held_piece # we are holding a piece
       puts "move the piece"
+      p key_hit
       drop_piece(key_hit)
       @held_piece = nil
     else # we are not holding a piece
@@ -85,6 +86,7 @@ class Display
       # dup = board.dup
       # board.dup.move!
       # board.move
+      p @held_piece.pos
       board.move(@held_piece.pos, pos)
       render
     else
