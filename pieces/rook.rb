@@ -1,17 +1,18 @@
+require_relative 'piece'
+require_relative 'slideable'
 
-require_relative 'horizontal_movement_module'
-require_relative 'slidingpiece.rb'
+class Rook < Piece
+  SCORE = 5
 
-class Rook < SlidingPiece
-
-  include HorizontalMovementModule
+  include Slideable
 
   def symbol
-    @color == :w ?  " ♜ " : " ♖ "
+    '♜'.colorize(color)
   end
 
-  def directions
-    horizontal
-  end
+  protected
 
+  def move_dirs
+    horizontal_dirs
+  end
 end

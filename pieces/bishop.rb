@@ -1,17 +1,18 @@
-require_relative 'diagonal_movement_module'
-require_relative 'slidingpiece'
+require_relative 'piece'
+require_relative 'slideable'
 
-class Bishop < SlidingPiece
-  include DiagonalMovementModule
+class Bishop < Piece
+  SCORE = 3
 
+  include Slideable
 
   def symbol
-    @color == :w ?  " ♝ " : " ♗ "
+    '♝'.colorize(color)
   end
 
-  def directions
-    diagonal
+  protected
+
+  def move_dirs
+    diagonal_dirs
   end
-
-
 end

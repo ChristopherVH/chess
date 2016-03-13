@@ -1,37 +1,55 @@
-require_relative "board.rb"
-require_relative "display.rb"
-require_relative "player.rb"
+require_relative 'board'
+require_relative 'human_player'
+require_relative 'computer_player'
 
 class Game
+  attr_reader :board, :display, :current_player, :players
 
-  attr_reader :display
-
-  def initialize(p1 = Player.new("White", :w), p2 = Player.new("Black", :b))
-    @display = Display.new
-    @p1, @p2 = p1, p2
-    @current_player = p1
+  def initialize
+    @board = Board.new
+    @display = Display.new(@board)
+    @players = {
+      white: ComputerPlayer.new(:white, @display),
+      black: HumanPlayer.new(:black, @display)
+    }
+    @current_player = :white
   end
 
-  def switch_player!
-    @current_player = (@current_player == p1 ? p2 : p1)
-  end
+  def play
+    until board.checkmate?(current_player)
+      begin
+        from_pos, to_pos = players[current_player].make_move(board)
+        board.move_piece(current_player, from_pos, to_pos)
 
-  def run_game
-    # display('clear')
-    @display.render
-    p "???"
-    while true
-      p "test"
-      @display.select_piece
-      # player.select_piece
-      switch_player!
-      @display.render
+        swap_turn!
+        notify_players
+      rescue StandardError => e
+        @display.notifications[:error] = e.message
+        retry
+      end
     end
 
+    display.render
+    puts "#{current_player} is checkmated."
+
+    nil
   end
 
+  private
+
+  def notify_players
+    if board.in_check?(current_player)
+      display.set_check!
+    else
+      display.uncheck!
+    end
+  end
+
+  def swap_turn!
+    @current_player = (current_player == :white) ? :black : :white
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new.run_game
+  Game.new.play
 end

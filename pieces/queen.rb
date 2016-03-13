@@ -1,17 +1,18 @@
-require_relative 'diagonal_movement_module'
-require_relative 'horizontal_movement_module'
-require_relative 'slidingpiece.rb'
+require_relative 'piece'
+require_relative 'slideable'
 
-class Queen < SlidingPiece
-  include DiagonalMovementModule
-  include HorizontalMovementModule
+class Queen < Piece
+  SCORE = 10
+
+  include Slideable
 
   def symbol
-    @color == :w ?  " ♛ " : " ♕ "
+    '♛'.colorize(color)
   end
 
-  def directions
-    horizontal.concat(diagonal)
-  end
+  protected
 
+  def move_dirs
+    horizontal_dirs + diagonal_dirs
+  end
 end

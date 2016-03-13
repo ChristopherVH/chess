@@ -1,21 +1,15 @@
+require "colorize"
 require_relative "cursorable"
-require "./pieces/pieces.rb"
-require "./pieces/directory.rb"
-
-require_relative "board.rb"
-require 'colorize'
 
 class Display
   include Cursorable
 
-  attr_reader :board
-  attr_accessor :message, :held_piece
+  attr_reader :board, :notifications
 
-  def initialize
-    @board = Board.new
+  def initialize(board)
+    @board = board
     @cursor_pos = [0, 0]
-    @message = ''
-    @held_piece = nil
+    @notifications = {}
   end
 
   def build_grid
@@ -33,84 +27,34 @@ class Display
 
   def colors_for(i, j)
     if [i, j] == @cursor_pos
-      bg = :green
+      bg = :light_red
     elsif (i + j).odd?
-      bg = :orange
-    else
       bg = :light_blue
-    end
-    { background: bg, color: :white }
-  end
-
-  def key_hit
-    result = nil
-    until result
-      render
-      result = get_input
-    end
-    result
-  end
-
-  def select_piece
-    p "select a piece"
-    if @held_piece # we are holding a piece
-      puts "move the piece"
-      p key_hit
-      drop_piece(key_hit)
-      @held_piece = nil
-    else # we are not holding a piece
-      puts "take a piece"
-      move = key_hit
-      p move
-      grab_piece(move)
-      select_piece
-    end
-  rescue #InvalidMoveError
-      @held_piece = nil
-      select_piece
-  end
-
-  def grab_piece(pos) # color
-    # if @board[pos].color == @player_color # TODO define @player_color
-    if true
-      @held_piece = @board[@cursor_pos]
-      p @held_piece
     else
-      raise "You don't own that piece :("
-      #TODO raise invalid move error
+      bg = :light_yellow
     end
+    { background: bg }
   end
 
-  def drop_piece(pos)
-    if @held_piece.valid_moves.include?(pos)
-      # dup = board.dup
-      # board.dup.move!
-      # board.move
-      p @held_piece.pos
-      board.move(@held_piece.pos, pos)
-      render
-    else
-      raise "You can't move there!! :("
-      #TODO raise invalid move error
-    end
+  def reset!
+    @notifications.delete(:error)
+  end
 
+  def uncheck!
+    @notifications.delete(:check)
+  end
+
+  def set_check!
+    @notifications[:check] = "Check!"
   end
 
   def render
-    # system("clear")
-    puts "Chess!"
+    system("clear")
     puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
-    puts "Held piece is #{@held_piece}"
     build_grid.each { |row| puts row.join }
 
-  end
-
-  def game_test
-    puts "play chess!"
-    while true
-      render
-      pos = key_hit
+    @notifications.each do |key, val|
+      puts "#{val}"
     end
   end
-
 end

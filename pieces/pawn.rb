@@ -1,38 +1,48 @@
-require_relative "pieces.rb"
-
+require_relative 'piece'
 
 class Pawn < Piece
+  SCORE = 1
 
   def symbol
-    @color == :w ?  " ♟ " : " ♙ "
+    '♟'.colorize(color)
   end
 
-  def direction
-    color == :w ? 1 :  -1
+  def moves
+    forward_steps + side_attacks
   end
 
-  def forward_step # return the forward step
-    [pos.first, pos.last + direction]
+  private
+
+  def at_start_row?
+    pos[0] == ((color == :white) ? 6 : 1)
   end
 
-  def first_step
-    [pos.first, pos.last + 2 * direction]
+  def forward_dir
+    (color == :white) ? -1 : 1
   end
 
-  def side_steps
-    [[forward_step.first + 1 , forward_step.last] , [forward_step.first - 1 , forward_step.last]]
+  def forward_steps
+    i, j = pos
+    one_step = [i + forward_dir, j]
+    return [] unless board.valid_pos?(one_step) && board.empty?(one_step)
+
+    steps = [one_step]
+    two_step = [i + 2 * forward_dir, j]
+    steps << two_step if at_start_row? && board.empty?(two_step)
+    steps
   end
 
-  def pawning
-    pawn_array = []
-    pawn_array << forward_step if board[forward_step].color.nil?
-    side_steps.each { |step| pawn_array << step if board[step].color != color }
-    if color == :w && pos.last == 1 || color == :b && pos.last == 6
-      pawn_array << first_step if board[first_step].color.nil?
+  def side_attacks
+    i, j = pos
+
+    side_moves = [[i + forward_dir, j - 1], [i + forward_dir, j + 1]]
+
+    side_moves.select do |new_pos|
+      next false unless board.valid_pos?(new_pos)
+      next false if board.empty?(new_pos)
+
+      threatened_piece = board[new_pos]
+      threatened_piece && threatened_piece.color != color
     end
-  end
-
-  def get_valid_moves
-    @valid_moves = pawning
   end
 end

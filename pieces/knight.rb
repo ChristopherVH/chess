@@ -1,26 +1,25 @@
-require_relative 'steppingpiece.rb'
+require_relative 'piece'
+require_relative 'stepable'
 
+class Knight < Piece
+  SCORE = 3
 
-class Knight < SteppingPiece
+  include Stepable
 
   def symbol
-    @color == :w ? " ♞ " : " ♘ "
+    '♞'.colorize(color)
   end
 
-  KNIGHT =
-  [
-    [1,2],
-    [-1,2],
-    [1,-2],
-    [-1,-2],
-    [2,1],
-    [2,-1],
-    [-2,-1],
-    [-2,1]
-  ]
+  protected
 
-  def directions
-    KNIGHT
+  def move_diffs
+    [[-2, -1],
+     [-1, -2],
+     [-2, 1],
+     [-1, 2],
+     [1, -2],
+     [2, -1],
+     [1, 2],
+     [2, 1]]
   end
-
 end

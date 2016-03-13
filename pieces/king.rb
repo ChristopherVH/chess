@@ -1,19 +1,25 @@
-require_relative 'diagonal_movement_module'
-require_relative 'horizontal_movement_module'
-require_relative 'steppingpiece.rb'
+require_relative 'piece'
+require_relative 'stepable'
 
+class King < Piece
+  SCORE = 0
 
-class King < SteppingPiece
-
-  include DiagonalMovementModule
-  include HorizontalMovementModule
+  include Stepable
 
   def symbol
-    @color == :w ?  " ♚ " : " ♔ "
+    '♚'.colorize(color)
   end
 
-  def directions
-    horizontal.concat(diagonal)
-  end
+  protected
 
+  def move_diffs
+    [[-1, -1],
+     [-1, 0],
+     [-1, 1],
+     [0, -1],
+     [0, 1],
+     [1, -1],
+     [1, 0],
+     [1, 1]]
+  end
 end
