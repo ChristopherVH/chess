@@ -31,7 +31,7 @@ class Display
     elsif (i + j).odd?
       bg = :light_blue
     else
-      bg = :light_yellow
+      bg = :green
     end
     { background: bg }
   end
