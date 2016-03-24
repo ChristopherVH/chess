@@ -9,5 +9,7 @@ Built using elements of inheritance, encapsulation, and polymorphism to keep cod
 * Clone the git repo using --> git clone https://github.com/ChristopherVH/chess.git 
 * Navigate to repo within your terminal
 * Run ruby game.rb it should look similar to this
+
 ![chess](http://i.imgur.com/sapyGZA.png)
+
 * Have some fun playing chess :)
