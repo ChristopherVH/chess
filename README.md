@@ -1,7 +1,7 @@
 # Chess
 
 A fully functional in terminal chess game with AI, written entirely in Ruby. 
-Built using elements of inheritance, encapsulation, and polymorphism to keep code DRY, also implemented error handeling to prevent moves that aren't allowed in a real chess game.
+Built using elements of inheritance, encapsulation, and polymorphism to keep code DRY, also implemented error handling to prevent moves that aren't allowed in a real chess game.
 
 #How do I play?
 
